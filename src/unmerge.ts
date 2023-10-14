@@ -1,5 +1,7 @@
-function unmerge(a1Notation: string): any[][] {
-  const range = SpreadsheetApp.getActiveSheet().getRange(a1Notation)
+import Unmerger from './Unmerger'
 
-  return range.getValues()
+function unmerge(a1Notation: string): any[][] {
+  const unmerger = new Unmerger(SpreadsheetApp)
+
+  return unmerger.run(a1Notation)
 }
