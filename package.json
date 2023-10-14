@@ -1,5 +1,12 @@
 {
+  "scripts": {
+    "test": "mocha"
+  },
   "dependencies": {
-    "@types/google-apps-script": "^1.0.74"
+    "@types/google-apps-script": "^1.0.74",
+    "@types/mocha": "^10.0.2",
+    "@types/node": "^20.8.5",
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.1"
   }
 }

@@ -18,6 +18,10 @@
     "noImplicitOverride": true,
     "exactOptionalPropertyTypes": true,
 
+    /* Module Resolution Options */
+    "moduleResolution": "Node10",
+    "esModuleInterop": true,
+
     /* Experimental Options */
     "experimentalDecorators": true
   }
