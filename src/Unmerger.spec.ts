@@ -16,4 +16,31 @@ describe('Unmerger', () => {
 
     assert.deepEqual(actual, expected)
   })
+
+  it('works well with entire merged cells', () => {
+    const unmerger = new Unmerger(SpreadsheetAppStub)
+
+    const actual = unmerger.run('A1:C3')
+
+    const expected = [
+      ['BIG CELL', 'BIG CELL', 'meow'],
+      ['BIG CELL', 'BIG CELL', 'croak'],
+      ['coo', 'buzz', 'neigh'],
+    ]
+
+    assert.deepEqual(actual, expected)
+  })
+
+  it('works well with parts of merged cells', () => {
+    const unmerger = new Unmerger(SpreadsheetAppStub)
+
+    const actual = unmerger.run('B2:C3')
+
+    const expected = [
+      ['BIG CELL', 'croak'],
+      ['buzz', 'neigh'],
+    ]
+
+    assert.deepEqual(actual, expected)
+  })
 })
