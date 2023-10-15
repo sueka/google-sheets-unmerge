@@ -8,4 +8,5 @@ interface ISheet {
 
 interface IRange {
   getValues(): string[][]
+  getMergedRanges(): IRange[]
 }
