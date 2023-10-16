@@ -10,6 +10,8 @@ export default class Unmerger {
     const values = range.getValues()
     const offsetRows = range.getRow() - 1
     const offsetColumns = range.getColumn() - 1
+    const rows = range.getNumRows()
+    const columns = range.getNumColumns()
     const mergedRanges = range.getMergedRanges()
 
     for (const mergedRange of mergedRanges) {
@@ -21,7 +23,7 @@ export default class Unmerger {
 
       for (let i = top - offsetRows - 1; i <= bottom - offsetRows - 1; i++) {
         for (let j = left - offsetColumns - 1; j <= right - offsetColumns - 1; j++) {
-          if (i < 0 || j < 0) {
+          if (!(0 <= i && i < rows) || !(0 <= j && j < columns)) {
             continue
           }
 
