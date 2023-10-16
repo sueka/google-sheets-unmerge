@@ -1,150 +1,84 @@
-const rangeA3C3Stub: IRange = { // includes no merged cells.
-  getValues() {
-    return [
-      ['coo', 'buzz', 'neigh'],
-    ]
-  },
+const VALUES = [
+  ['BIG CELL', '', 'meow'],
+  ['', '', 'croak'],
+  ['coo', 'buzz', 'neigh'],
+]
 
-  getMergedRanges() {
-    return []
-  },
+const LEFT_OF_MERGED = 1
+const TOP_OF_MERGED = 1
+const RIGHT_OF_MERGED = 2
+const BOTTOM_OF_MERGED = 2
 
-  getValue() { return 'coo' },
-  getRow() { return 3 },
-  getLastRow() { return 3 },
-  getColumn() { return 1 },
-  getLastColumn() { return 3 },
-  getNumRows() { return 1 },
-  getNumColumns() { return 3 },
+function sliceRange<T>(left: number, top: number, right: number, bottom: number, values: T[][]): T[][] {
+  return values.slice(top - 1, bottom).map(row => row.slice(left - 1, right))
 }
 
-const rangeA1C3Stub: IRange = { // includes the entire merged cell.
-  getValues() {
-    return [
-      ['BIG CELL', '', 'meow'],
-      ['', '', 'croak'],
-      ['coo', 'buzz', 'neigh'],
-    ]
-  },
+/**
+ * @param top one-based
+ * @param bottom one-based
+ * @param left one-based
+ * @param right one-based
+ */
+function generateRangeStub(left: number, top: number, right: number, bottom: number, wholeValues: string[][]) {
+  const values = sliceRange(left, top, right, bottom, wholeValues)
+  const isPartOfMerge =
+    left <= RIGHT_OF_MERGED &&
+    right >= LEFT_OF_MERGED &&
+    top <= BOTTOM_OF_MERGED &&
+    bottom >= TOP_OF_MERGED
 
-  getMergedRanges() {
-    const mergedRange: IRange = {
-      getValues() {
-        return [
-          ['BIG CELL', ''],
-          ['', ''],
-        ]
-      },
+  const rangeStub: IRange = {
+    getValues() {
+      return values
+    },
 
-      getMergedRanges() {
+    getMergedRanges() {
+      if (isPartOfMerge) {
         return [mergedRange]
-      },
+      } else {
+        return []
+      }
+    },
 
-      getValue() { return 'BIG CELL' },
-      getRow() { return 1 },
-      getLastRow() { return 2 },
-      getColumn() { return 1 },
-      getLastColumn() { return 2 },
-      getNumRows() { return 2 },
-      getNumColumns() { return 2 },
-    }
+    getValue() { return values[0]?.[0] ?? '' },
+    getRow() { return top },
+    getLastRow() { return bottom },
+    getColumn() { return left },
+    getLastColumn() { return right },
+    getNumRows() { return bottom - top + 1 },
+    getNumColumns() { return right - left + 1 },
+  }
 
-    return [mergedRange]
-  },
-
-  getValue() { return 'BIG CELL' },
-  getRow() { return 1 },
-  getLastRow() { return 3 },
-  getColumn() { return 1 },
-  getLastColumn() { return 3 },
-  getNumRows() { return 3 },
-  getNumColumns() { return 3 },
+  return rangeStub
 }
 
-const rangeA1A3Stub: IRange = { // includes the entire merged cell.
-  getValues() {
-    return [
-      ['BIG CELL'],
-      [''],
-      ['coo'],
-    ]
-  },
+const mergedValues = sliceRange(
+  LEFT_OF_MERGED,
+  TOP_OF_MERGED,
+  RIGHT_OF_MERGED,
+  BOTTOM_OF_MERGED,
+  VALUES
+)
 
-  getMergedRanges() {
-    const mergedRange: IRange = {
-      getValues() {
-        return [
-          ['BIG CELL', ''],
-          ['', ''],
-        ]
-      },
+const mergedRange: IRange = generateRangeStub(
+  LEFT_OF_MERGED,
+  TOP_OF_MERGED,
+  RIGHT_OF_MERGED,
+  BOTTOM_OF_MERGED,
+  mergedValues
+)
 
-      getMergedRanges() {
-        return [mergedRange]
-      },
+// includes no merged cells.
+const rangeA3C3Stub: IRange = generateRangeStub(1, 3, 3, 3, VALUES)
 
-      getValue() { return 'BIG CELL' },
-      getRow() { return 1 },
-      getLastRow() { return 2 },
-      getColumn() { return 1 },
-      getLastColumn() { return 2 },
-      getNumRows() { return 2 },
-      getNumColumns() { return 2 },
-    }
+// includes the entire merged cell.
+const rangeA1C3Stub: IRange = generateRangeStub(1, 1, 3, 3, VALUES)
 
-    return [mergedRange]
-  },
+// includes the entire merged cell.
+const rangeA1A3Stub: IRange = generateRangeStub(1, 1, 1, 3, VALUES)
 
-  getValue() { return 'BIG CELL' },
-  getRow() { return 1 },
-  getLastRow() { return 3 },
-  getColumn() { return 1 },
-  getLastColumn() { return 1 },
-  getNumRows() { return 3 },
-  getNumColumns() { return 1 },
-}
-
-const rangeB2C3Stub: IRange = { // includes some of the merged cell.
-  getValues() {
-    return [
-      ['', 'croak'],
-      ['buzz', 'neigh'],
-    ]
-  },
-
-  getMergedRanges() {
-    const mergedRange = {
-      getValues() {
-        return [
-          ['BIG CELL', ''],
-          ['', ''],
-        ]
-      },
-
-      getMergedRanges() {
-        return [mergedRange]
-      },
-
-      getValue() { return 'BIG CELL' },
-      getRow() { return 1 },
-      getLastRow() { return 2 },
-      getColumn() { return 1 },
-      getLastColumn() { return 2 },
-      getNumRows() { return 2 },
-      getNumColumns() { return 2 },
-    }
-
-    return [mergedRange]
-  },
-
-  getValue() { return '' }, // FIXME: Maybe `return void`
-  getRow() { return 2 }, // FIXME: Maybe `return 1`
-  getLastRow() { return 3 },
-  getColumn() { return 2 }, // FIXME: Maybe `return 1`
-  getLastColumn() { return 3 },
-  getNumRows() { return 2 },
-  getNumColumns() { return 2 },
-}
+// includes some of the merged cell.
+const rangeB2C3Stub: IRange = generateRangeStub(2, 2, 3, 3, VALUES)
 
 const sheetStub: ISheet = {
   getRange(a1Notation) {
