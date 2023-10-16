@@ -8,6 +8,12 @@ const rangeA3C3Stub: IRange = { // includes no merged cells.
   getMergedRanges() {
     return []
   },
+
+  getValue() { return 'coo' },
+  getRow() { return 3 },
+  getLastRow() { return 3 },
+  getColumn() { return 1 },
+  getLastColumn() { return 3 },
 }
 
 const rangeA1C3Stub: IRange = { // includes the entire merged cell.
@@ -20,7 +26,7 @@ const rangeA1C3Stub: IRange = { // includes the entire merged cell.
   },
 
   getMergedRanges() {
-    const mergedRange = {
+    const mergedRange: IRange = {
       getValues() {
         return [
           ['BIG CELL', ''],
@@ -31,10 +37,22 @@ const rangeA1C3Stub: IRange = { // includes the entire merged cell.
       getMergedRanges() {
         return [mergedRange]
       },
+
+      getValue() { return 'BIG CELL' },
+      getRow() { return 1 },
+      getLastRow() { return 2 },
+      getColumn() { return 1 },
+      getLastColumn() { return 2 },
     }
 
     return [mergedRange]
   },
+
+  getValue() { return 'BIG CELL' },
+  getRow() { return 1 },
+  getLastRow() { return 3 },
+  getColumn() { return 1 },
+  getLastColumn() { return 3 },
 }
 
 const rangeB2C3Stub: IRange = { // includes some of the merged cell.
@@ -57,10 +75,22 @@ const rangeB2C3Stub: IRange = { // includes some of the merged cell.
       getMergedRanges() {
         return [mergedRange]
       },
+
+      getValue() { return 'BIG CELL' },
+      getRow() { return 1 },
+      getLastRow() { return 2 },
+      getColumn() { return 1 },
+      getLastColumn() { return 2 },
     }
 
     return [mergedRange]
   },
+
+  getValue() { return '' }, // FIXME: Maybe `return void`
+  getRow() { return 2 }, // FIXME: Maybe `return 1`
+  getLastRow() { return 3 },
+  getColumn() { return 2 }, // FIXME: Maybe `return 1`
+  getLastColumn() { return 3 },
 }
 
 const sheetStub: ISheet = {
