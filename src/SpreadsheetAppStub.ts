@@ -14,6 +14,8 @@ const rangeA3C3Stub: IRange = { // includes no merged cells.
   getLastRow() { return 3 },
   getColumn() { return 1 },
   getLastColumn() { return 3 },
+  getNumRows() { return 1 },
+  getNumColumns() { return 3 },
 }
 
 const rangeA1C3Stub: IRange = { // includes the entire merged cell.
@@ -43,6 +45,8 @@ const rangeA1C3Stub: IRange = { // includes the entire merged cell.
       getLastRow() { return 2 },
       getColumn() { return 1 },
       getLastColumn() { return 2 },
+      getNumRows() { return 2 },
+      getNumColumns() { return 2 },
     }
 
     return [mergedRange]
@@ -53,6 +57,8 @@ const rangeA1C3Stub: IRange = { // includes the entire merged cell.
   getLastRow() { return 3 },
   getColumn() { return 1 },
   getLastColumn() { return 3 },
+  getNumRows() { return 3 },
+  getNumColumns() { return 3 },
 }
 
 const rangeA1A3Stub: IRange = { // includes the entire merged cell.
@@ -82,6 +88,8 @@ const rangeA1A3Stub: IRange = { // includes the entire merged cell.
       getLastRow() { return 2 },
       getColumn() { return 1 },
       getLastColumn() { return 2 },
+      getNumRows() { return 2 },
+      getNumColumns() { return 2 },
     }
 
     return [mergedRange]
@@ -92,6 +100,8 @@ const rangeA1A3Stub: IRange = { // includes the entire merged cell.
   getLastRow() { return 3 },
   getColumn() { return 1 },
   getLastColumn() { return 1 },
+  getNumRows() { return 3 },
+  getNumColumns() { return 1 },
 }
 
 const rangeB2C3Stub: IRange = { // includes some of the merged cell.
@@ -120,6 +130,8 @@ const rangeB2C3Stub: IRange = { // includes some of the merged cell.
       getLastRow() { return 2 },
       getColumn() { return 1 },
       getLastColumn() { return 2 },
+      getNumRows() { return 2 },
+      getNumColumns() { return 2 },
     }
 
     return [mergedRange]
@@ -130,6 +142,8 @@ const rangeB2C3Stub: IRange = { // includes some of the merged cell.
   getLastRow() { return 3 },
   getColumn() { return 2 }, // FIXME: Maybe `return 1`
   getLastColumn() { return 3 },
+  getNumRows() { return 2 },
+  getNumColumns() { return 2 },
 }
 
 const sheetStub: ISheet = {

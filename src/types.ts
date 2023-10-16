@@ -14,4 +14,6 @@ interface IRange {
   getLastRow(): number
   getColumn(): number
   getLastColumn(): number
+  getNumRows(): number
+  getNumColumns(): number
 }
